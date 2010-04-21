@@ -49,7 +49,9 @@ static NSDictionary* itemForSite( NSSet* set, NSString* site )
 	
     int i = 0;
     CTFForEachObject( NSDictionary, item, set ) {
-        if( [ [ item objectForKey: @"site" ] isEqualToString: site ] )
+        NSString *itemsite = [ item objectForKey: @"site" ];
+        NSPredicate *predicate = [ NSPredicate predicateWithFormat: @"SELF like[c] %@", itemsite ];
+        if( [ predicate evaluateWithObject: site ] )
             specificWhitelistItem = item;
         ++i;
     }
